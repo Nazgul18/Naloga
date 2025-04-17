@@ -1,0 +1,59 @@
+<div class="p-5">
+    <span class="h2 py-2">Bucket list</span>
+
+    <div *ngIf="showForm" class="mb-4">
+        <div class="my-3">
+        <span class="mx-3 h5">Create new bucket</span>
+        <div class="p-3 bg-white">
+          <form [formGroup]="addBucket" (ngSubmit)="onSubmit()">
+            <div class="d-flex justify-content-left">
+              <div class="w-50 pe-5 me-5">
+                <label for="bucket" class="form-label">Bucket Name *</label>
+                <input
+                  id="bucket" type="text" formControlName="name" class="form-control rounded-0" />
+              </div>
+              <div class="w-50 px-5 mx-5">
+                <label for="location" class="form-label">Bucket Location *</label>
+                <select id="location" class="form-select rounded-0" formControlName="location">
+                  <option value="" disabled selected>Select a location</option>
+                  <option value="Kranj">Kranj</option>
+                  <option value="Ljubljana">Ljubljana</option>
+                  <option value="Maribor">Maribor</option>
+                </select>
+              </div>
+            </div>
+            <div class="mt-4">
+              <button type="submit" [disabled]="!addBucket.valid" class="btn btn-secondary btn-sm border border-2 border-black rounded-0"> Create Bucket </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-3 my-5 bg-white">
+        <div class="d-flex justify-content-between py-3">
+            <p>All buckets ({{podatki.length}})</p>
+            <button type="button" *ngIf="!showForm" class="btn btn-secondary btn-sm rounded-0 border-black border-2" (click)="toggleForm()">Create New Bucket</button>
+        </div>
+
+        <div class="">
+        <table class="table table-borderless">
+            <thead class="border-bottom border-2 border-black">
+              <tr>
+                <th class="bg-body-tertiary fw-normal w-75" scope="col">Name</th>
+                <th class="bg-body-tertiary fw-normal w-25" scope="col">Location</th>
+              </tr>
+            </thead>
+            <tbody class="border border-2 border-black">
+              <tr *ngFor="let element of podatki">
+                <td>
+                    <a [routerLink]="['/bucket', element.id]" class="text-decoration-none text-dark cursor-pointer">{{ element.name }}</a>
+                  </td>
+                <td>{{ element.location }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>          
+    </div>
+</div>
+
